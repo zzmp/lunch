@@ -22,7 +22,7 @@ angular.module('Lunch', ['ionic',  'openfb', 'push', 'Lunch.profile', 'Lunch.bro
   $urlRouterProvider.otherwise('/app/login');
 })
 
-.run(function($ionicPlatform, $rootScope, $state, $window, OpenFB, push, fbAPI, gcmAPI, match) {
+.run(function($ionicPlatform, $rootScope, $state, $document, $window, OpenFB, push, fbAPI, gcmAPI, match) {
   $ionicPlatform.ready(function() {
     if($window.StatusBar) {
       $window.StatusBar.styleDefault();
@@ -64,5 +64,9 @@ angular.module('Lunch', ['ionic',  'openfb', 'push', 'Lunch.profile', 'Lunch.bro
   // Catch oAuth2 exceptions
   $rootScope.$on('OAuthException', function() {
     $state.go('app.login');
+  });
+
+  $document.on('backbutton', function(e) {
+    navigator.app.exit();
   });
 });
