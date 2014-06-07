@@ -93,8 +93,6 @@ angular.module('Lunch.profile', ['openfb', 'Lunch.factory.Geo', 'Lunch.factory.r
     OpenFB.get('/me/picture?redirect=0&height=133&type=normal&width=100')//'/me/picture')
     .success(function(data){
       if(data !== $scope.userData.photo_url){
-        var image = "<div class='userimage'><img src='" + data.data.url + "'/></div>";
-        angular.element(document.querySelector('#userimage')).html(image);
         $scope.userData.photo_url = data.data.url;
         //tell the database the image associated with the user has changed
         postUser();

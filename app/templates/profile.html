@@ -3,7 +3,9 @@
         <button menu-toggle="left"class="button button-icon icon ion-navicon"></button>
     </ion-nav-buttons>
     <ion-content class="has-header">
-        <div id="userimage"></div>
+        <div class="userimage">
+            <img src="{{userData.photo_url}}">
+        </div>
         <div >
             <h4 id="username">{{userData.first_name}} {{userData.last_name}}</h4>
         </div>
