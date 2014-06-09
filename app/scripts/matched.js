@@ -13,11 +13,12 @@ angular.module('Lunch.matched', ['Lunch.factory.requests'])
   });
 })
 
-.controller('MatchedCtrl', function($rootScope, $scope, $state, $window, requests, match){
+.controller('MatchedCtrl', function($rootScope, $scope, $state, $window,
+                                    requests, match){
     var initialize = function() {
       requests.getDetails(match.id).then(function(res) {
         var user = {
-          location: res.data.location.id,
+          location: res.data.location.city,
           tags: res.data.tags.map(function(tag) { return tag.name; }),
           likes: res.data.likes.map(function(like) { return like.name; })
         };

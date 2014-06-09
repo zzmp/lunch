@@ -1,6 +1,10 @@
 'use strict';
 
-angular.module('Lunch.browse', ['openfb', 'Lunch.service.matchData', 'Lunch.factory.storedUserData'])
+angular.module('Lunch.browse', [
+  'openfb',
+  'Lunch.service.matchData',
+  'Lunch.factory.storedUserData'
+])
 .config(function($stateProvider){
   $stateProvider
   .state('app.browse', {
@@ -14,7 +18,8 @@ angular.module('Lunch.browse', ['openfb', 'Lunch.service.matchData', 'Lunch.fact
   });
 })
 
-.controller('BrowseCtrl', function($rootScope, $state, $scope, matchData, $location, requests, OpenFB, match){
+.controller('BrowseCtrl', function($rootScope, $state, $scope, matchData,
+                                   $location, requests, OpenFB, match){
     var matchId;
     var matchedData = [];
 
@@ -43,17 +48,17 @@ angular.module('Lunch.browse', ['openfb', 'Lunch.service.matchData', 'Lunch.fact
     // records an approval for the currently displayed profile
     $scope.postDecision = function(decision){
       // call service to send approval to db
-      OpenFB.checkLogin().then(function(id){
-        console.log(id);
+      OpenFB.checkLogin().then(function(userId){
+        console.log(userId);
         requests.postDecision({
-            id: id,
+            id: userId,
             selectedUserId : matchId,
             accepted: decision
         })
         .then(function(returnedData){
           var parsedData = angular.fromJson(returnedData);
-          if(parsedData.config){
-            match.id = parsedData.config.data.selectedUserId;
+          if(parsedData.data.id && decision ==='true'){
+            match.id = parsedData.data.selectedUserId;
             $state.go('app.matched');
           } else {
             next();
